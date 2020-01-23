@@ -1,2 +1,2 @@
-# OCR_TAG_PROGRAM
+# OCR TAG PROGRAM
 Programa que administra el etiquetado para OCR
