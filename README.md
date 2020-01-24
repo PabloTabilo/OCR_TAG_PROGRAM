@@ -5,7 +5,7 @@ Facilita el etiquetado de OCR.
 Tener python3, se recomienda crear un ambiente aislado.
 Las siguiente librerías son necesarias para correr el programa:
 * `pip install opencv-python`
-* `pip install pyqt5`
+* `pip install PyQt5`
 * `pip install numpy`
 
 ## Descripción y detalles
