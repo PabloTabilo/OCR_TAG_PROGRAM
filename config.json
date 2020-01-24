@@ -1,0 +1,27 @@
+{
+    "filter_transforms":{
+        "kernel_average":{
+            "size_square": 8,
+            "divide": 25
+        },
+        "kernel_blur":{
+            "size_square": 7
+        }
+        ,
+        "kernel_gaussian":{
+            "size_square": 15
+        },
+        "kernel_median":{
+            "size_square": 5
+        },
+        "salt_and_pepper":{
+            "sp": 0.5,
+            "amount": 0.4
+        }
+    },
+    "morphological_transforms":{
+        "kernel_mor":{
+            "size_square": 8
+        }
+    }
+}

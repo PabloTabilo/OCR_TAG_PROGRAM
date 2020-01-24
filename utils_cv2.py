@@ -1,10 +1,33 @@
 import cv2
 import numpy as np
 import os
+import json
+# read file
+with open('config.json', 'r') as myfile:
+    data_json=myfile.read()
+# parse file
+obj = json.loads(data_json)
 
 class ImageConfig():
     def __init__(self,url_dir_i):
         self.url_dir_i = url_dir_i
+        
+        # filter transforms
+        # average
+        self.average_size = int(obj["filter_transforms"]["kernel_average"]["size_square"])
+        self.average_divide = float(obj["filter_transforms"]["kernel_average"]["divide"])
+        #blur
+        self.blur_size = int(obj["filter_transforms"]["kernel_blur"]["size_square"])
+        #gauss
+        self.gauss_size = int(obj["filter_transforms"]["kernel_gaussian"]["size_square"])
+        #median
+        self.median_size = int(obj["filter_transforms"]["kernel_median"]["size_square"])
+        #S&P
+        self.sp_sp = int(obj["filter_transforms"]["salt_and_pepper"]["sp"])
+        self.sp_amount = int(obj["filter_transforms"]["salt_and_pepper"]["amount"])
+        # Morphological Transforms
+        self.morpho_size = int(obj["morphological_transforms"]["kernel_mor"]["size_square"])
+
     
     def loadImagesbyDir(self):
         self.img = cv2.imread(self.url_dir_i,1)
@@ -17,7 +40,7 @@ class ImageConfig():
     def morphologicalTransforms(self):
         # gray morphological transformations
         self.gray_img = cv2.cvtColor(self.img,cv2.COLOR_BGR2GRAY)
-        kernel_mor = np.ones((5,5),np.uint8)
+        kernel_mor = np.ones((self.morpho_size,self.morpho_size),np.uint8)
         self.erosion = cv2.erode(self.img,kernel_mor,iterations = 1)
         self.dilation = cv2.dilate(self.img,kernel_mor,iterations = 1)
         self.opening = cv2.morphologyEx(self.img, cv2.MORPH_OPEN, kernel_mor)
@@ -25,20 +48,20 @@ class ImageConfig():
     
     def filtersTransforms(self):
         # Averaging
-        kernel = np.ones((5,5),np.float32)/25.0
+        kernel = np.ones((self.average_size,self.average_size),np.float32)/self.average_divide
         self.average = cv2.filter2D(self.img,-1,kernel)
         # blur
-        self.blur = cv2.blur(self.img,(7,7))
+        self.blur = cv2.blur(self.img,(self.blur_size,self.blur_size))
         # GaussianBlur
-        self.gaussblur = cv2.GaussianBlur(self.img,(5,5),0)
+        self.gaussblur = cv2.GaussianBlur(self.img,(self.gauss_size,self.gauss_size),0)
         # MedianFilter
-        self.median = cv2.medianBlur(self.img,5)
+        self.median = cv2.medianBlur(self.img,self.median_size)
     
     def specialSaltAndPepper(self):
         # Salt and pepper
         row,col,ch = self.img.shape
-        s_vs_p = 0.5
-        amount = 0.04
+        s_vs_p = self.sp_sp
+        amount = self.sp_amount
         self.out = np.copy(self.img)
         # Salt mode
         num_salt = np.ceil(amount * self.img.size * s_vs_p)
