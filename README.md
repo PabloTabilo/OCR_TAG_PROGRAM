@@ -1,12 +1,8 @@
 # OCR TAG PROGRAM
 Finalidad: Facilitar y agilizar el etiquetado de OCR para la creación de una RED que tenga data nueva.
 
-**Tabla de contenidos**
-[TOC]
-
 ## Requerimientos
-Tener python 3 instalado, se recomienda crear un ambiente aislado (lo podemos hacer con anaconda).
-[Links](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
+Tener python 3 instalado, se recomienda crear un ambiente aislado (lo podemos hacer con [anaconda](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)).
 Las siguiente librerías son necesarias para correr el programa:
 * `pip install opencv-python`
 * `pip install PyQt5`
