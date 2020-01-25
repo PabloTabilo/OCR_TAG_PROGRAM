@@ -23,8 +23,8 @@ class ImageConfig():
         #median
         self.median_size = int(obj["filter_transforms"]["kernel_median"]["size_square"])
         #S&P
-        self.sp_sp = int(obj["filter_transforms"]["salt_and_pepper"]["sp"])
-        self.sp_amount = int(obj["filter_transforms"]["salt_and_pepper"]["amount"])
+        self.sp_sp = float(obj["filter_transforms"]["salt_and_pepper"]["sp"])
+        self.sp_amount = float(obj["filter_transforms"]["salt_and_pepper"]["amount"])
         # Morphological Transforms
         self.morpho_size = int(obj["morphological_transforms"]["kernel_mor"]["size_square"])
 
@@ -80,6 +80,7 @@ class ImageConfig():
         self.specialSaltAndPepper()
 
     def saveAll(self, outpath, name):
+        name = name.strip(".png")
         cv2.imwrite(os.path.join(outpath,name+"_original_.png"),self.img)
 
         cv2.imwrite(os.path.join(outpath,name+"_average_.png"),self.average)
