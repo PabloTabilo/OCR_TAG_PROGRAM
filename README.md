@@ -24,7 +24,7 @@ name3.extension(por eje. "png") | nombre_imagen3\n
 ![](https://github.com/PabloTabilo/OCR_TAG_PROGRAM/blob/master/examples/app_principal.png)
 
 ### Image augmentation
-+ Se busca ampliar la varianza de posibilidades para el futuro entrenamiento de la red neuronal.
++ Se busca ampliar la varianza de los datos con el fin de representar un desafío para el futuro entrenamiento de la red neuronal, ya que, esto permite lograr que la red capture las features relevantes dentro de la imagen.
     + Se tiene distintas funciones implementadas con open-cv tanto de filtros como morfológicas.
         + Transformaciones morfológicas
             + Erosion
@@ -47,7 +47,7 @@ Para esta parte tenemos la etiqueta de ocr con el formato obligatorio para entre
 ![](https://github.com/PabloTabilo/OCR_TAG_PROGRAM/blob/master/examples/datalabelinfo.png)
 
 #### Salida de la información
-El programa, en el mismo directorio donde se aloje, crea dos carpetas llamadas "salidaOCR", "txt_dir".
+El programa, en el mismo directorio donde se aloja, crea dos carpetas llamadas "salidaOCR", "txt_dir".
 La carpeta "salidaOCR" contiene las imagenes con su transformación, y la carpeta "txt_dir" contiene un archivo de texto que mantiene el orden que se explica en la sección de "Descripción y detalles".
 
 ## Opcional
