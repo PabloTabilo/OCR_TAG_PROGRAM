@@ -16,6 +16,8 @@ class Window(QWidget):
         self.height = 600
         # Indica si un archivo "i" esta guardado
         self.save_file = False
+        self.textoCambio = False
+        self.dir_anterior = ""
 
         self.InitWindow()
     
@@ -69,6 +71,21 @@ class Window(QWidget):
             return True
         else:
             return False
+    
+    def modifyText(self):
+        res = QMessageBox.question(self,'','Se modificó el texto, no quieres guardar?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if res == QMessageBox.Yes:
+            return True
+        else:
+            return False
+    
+    def onlySpaces(self):
+        res = QMessageBox.question(self,'','Has dejado muchos espacios, más de 3, es correcto?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if res == QMessageBox.Yes:
+            return True
+        else:
+            return False
+
     
     def alertNotSaveEmpty(self):
         QMessageBox.about(self, "No se puede salvar!", "Estas entregando un tag OCR vacío, no podemos salvar.")
@@ -250,13 +267,21 @@ class Window(QWidget):
     # funcion: abre el directorio y te entrega una lista de todos los archivos
     # .png, .jpg, .jpeg, .JPG, .PNG
     def getDir(self):
-        self.ddir = QFileDialog.getExistingDirectory(self, "Get Dir PAth")
+        self.ddir = QFileDialog.getExistingDirectory(self, "Get Dir Path")
         try:
-            self.files = [name for name in os.listdir(str(self.ddir)) if ".png" in name or
+            files_actuals = [name for name in os.listdir(str(self.ddir)) if ".png" in name or
              ".jpg" in name or ".jpeg" in name or ".JPG" in name or ".PNG" in name]
-            self.itemsList() # con esto listo los archivos en una lista
+            if len(files_actuals)>0:
+                self.dir_anterior = self.ddir
+                self.files = files_actuals
+                self.itemsList() # con esto listo los archivos en una lista
         except:
-            self.dir = ""
+            # Si el usuario cancela el directorio, entonces, como tengo guardado el
+            # directorio que ya abrió, solo se lo asigno
+            self.ddir = ""
+            if len(self.dir_anterior)>1:
+                self.ddir = self.dir_anterior
+                self.itemsList()
     
     # Funcion que con el nombre de la imagen y la colocamos en el pixmap
     # para mostrarla en la app
@@ -295,6 +320,7 @@ class Window(QWidget):
     # Escribe el texto en el lineedit
     def onPressed(self):
         self.textUser = self.lineedit.text()
+        self.textoCambio = True
 
 if __name__ == "__main__":
     App = QApplication(sys.argv)
