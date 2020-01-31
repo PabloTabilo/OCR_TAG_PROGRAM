@@ -18,8 +18,8 @@ def checkMytxt(path_current="txt_dir/data_label.txt"):
     try:
         with open(path_current, 'r') as f:
             data = f.readlines()
-        content = [row.split("\t")[0].replace("_original_","") for row in data if "_original_" in row]
-        content_label = [row.split("\t")[1].strip("\n") for row in data if "_original_" in row]
+        content = [row.split("\t")[0].replace("_original_.png",".png") for row in data if "_original_." in row]
+        content_label = [row.split("\t")[1].strip("\n") for row in data if "_original_." in row]
     except :
         content = ""
         content_label = ""

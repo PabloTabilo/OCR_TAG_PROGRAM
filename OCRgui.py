@@ -103,15 +103,16 @@ class Window(QWidget):
         QMessageBox.about(self, "Todo Guardado", "Todo a sido guardado de manera exitosa!!")
     
     def checkImageSelect(self):
+        print("Vamos a Checkear la imagen seleccionada!")
         try:
-            print("1ero instancia rescatada con text")
+            print("1ero: Instancia rescatada con text")
             print(self.listwidget.currentItem().text())
-            print("2do propiedad de la clase")
+            print("2do: Propiedad de la clase con el nombre de la img")
             print(self.imageName)
-            print("Tenemos la imagen seleccionada")
+            print("3ro: Tenemos la imagen seleccionada\n")
             self.allGood = True
         except:
-            print("No has seleccionado ninguna imagen")
+            print("No has seleccionado ninguna imagen\n")
             self.save_file = False
             self.allGood = False
             self.alertNotImage()
@@ -124,10 +125,10 @@ class Window(QWidget):
     def checkUserText(self):
         try:
             print(self.textUser)
-            print("Tenemos el texto del usuario!")
+            print("Tenemos el texto del usuario!\n")
             self.allGood = True
         except:
-            print("El usuario no ha escrito nada")
+            print("El usuario no ha escrito nada\n")
             self.save_file = False
             self.allGood = False
             self.alertNotUserText()
@@ -140,10 +141,10 @@ class Window(QWidget):
     def checkDir(self):
         try:
             print(str(self.ddir))
-            print("Tenemos el directorio")
+            print("Tenemos el directorio correcto!\n")
             self.allGood = True
         except:
-            print("No has seleccionado ningun directorio")
+            print("No has seleccionado ningun directorio\n")
             self.save_file = False
             self.allGood = False
             self.alertNotDir()
@@ -155,19 +156,24 @@ class Window(QWidget):
     
     def checked(self):
         if self.checkDir() and self.checkImageSelect() and self.checkUserText():
+            print("\nSe cumple todo: checkeado directorio, imagen y texto!\n")
             return True
         else:
+            print("\nNO se cumple todo: fallo checkeado directorio, imagen o texto!\n")
             return False
     
     # Funcion que guarda el OCR solo si tiene todos los datos
     # especificados 
     def save_ocr(self):
+        print("Vamos a salvar lo que el usuario a escrito!\n")
         self.save_file = True
         self.allGood = True
         
         if self.checked():
             if self.textUser != "":
+                print("Vamor a llamar a app para que nos salve tag de OCR")
                 app.main(str(self.ddir),self.listwidget.currentItem().text(),self.textUser)
+                print("Salvado y sin problemas, deberia aparecer alerta de SAVE")
                 self.alertAllSave()
             else:
                 print("Pero el user borro todo!")
@@ -297,18 +303,24 @@ class Window(QWidget):
     # Finalmente el nombre lo escribe sobre el line edit
     def identify(self,image_name):
         # nombres de las imgs guardadas con OCR
+        print("\nLa imagen tiene tag OCR?\n")
         name_saved, ocr_saved = app.checkMytxt()
+        print("Deberia de estar recuperado, buscamos en app!\n")
         self.dict_saved = dict(zip(name_saved,ocr_saved))
         try:
             actual_name = self.dict_saved[image_name]
+            print(actual_name)
             self.lineedit.setText(actual_name)
             self.save_file = True
+            print("Actual name asignado exitosamente!\n")
             print(actual_name)
-            print("Actual name asignado!")
             if actual_name == "":
                 self.save_file = False
         except:
+            print("Algun problema ocurrio!!")
+            print("No estaba el valor registrado")
             self.lineedit.setText("")
+            print("El nombre es vacío!")
             self.save_file = False
     
     # Funcion que registra el cambio del texto
