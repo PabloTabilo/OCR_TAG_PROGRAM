@@ -175,6 +175,7 @@ class Window(QWidget):
                 app.main(str(self.ddir),self.listwidget.currentItem().text(),self.textUser)
                 print("Salvado y sin problemas, deberia aparecer alerta de SAVE")
                 self.alertAllSave()
+                self.next_click()
             else:
                 print("Pero el user borro todo!")
                 self.allGood = False
@@ -327,7 +328,10 @@ class Window(QWidget):
     def setLabelInput(self):
         self.lineedit = QLineEdit(self)
         self.lineedit.setFont(QtGui.QFont("Sanserif",15))
+        # Cambio algo dentro
         self.lineedit.textChanged.connect(self.onPressed)
+        ## si presiono enter
+        self.lineedit.returnPressed.connect(self.save_ocr)
     
     # Escribe el texto en el lineedit
     def onPressed(self):
