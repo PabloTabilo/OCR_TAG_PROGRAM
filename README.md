@@ -20,7 +20,7 @@ name3.extension(por eje. "png") | nombre_imagen3\n
 ... | ...
 
 Para iniciar la aplicacion se escribe lo siguiente en consola, tiene que ser en el directorio del proyecto:
-`python OCRgui.py`
+* `python OCRgui.py`
 
 ### Ejemplos de uso (con pantallazo)
 #### Aplicación principal
